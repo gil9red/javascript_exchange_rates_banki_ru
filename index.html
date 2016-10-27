@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    
+    <body onload="onload()">
+        <script>
+            function exchange_rate(id, currency_id, timestamp) {
+                data = {
+                    currency_id: currency_id,
+                    date: timestamp
+                }
+
+                var url = 'http://www.banki.ru/products/currency/ajax/quotations/value/cbr/';
+          
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', url, true);
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+              
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var data = JSON.parse(xhr.responseText);
+                        console.log(data);
+                        
+                        document.querySelector('#' + id).innerHTML = data.value;
+                    }
+                };
+                
+                xhr.send(JSON.stringify(data));
+            }
+            
+            function onload() {
+                var today = new Date();
+                var day = today.getDate();
+                if (day < 10) {
+                    day = "0" + day;
+                }
+
+                var month = today.getMonth() + 1;
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                
+                document.querySelector('#caption').innerHTML = day + "/" + month + "/" + today.getFullYear();
+                
+                var timestamp = Math.round(today.getTime() / 1000);
+                exchange_rate("usd", 840, timestamp);
+                exchange_rate("euro", 978, timestamp);
+            }
+            
+        </script>
+        
+        <table>
+            <caption id="caption"></caption>
+            <tr><td>USD:</td><td id="usd"></td></tr>
+            <tr><td>EURO:</td><td id="euro"></td></tr>
+        </table>
+
+    </body>
+</html>
