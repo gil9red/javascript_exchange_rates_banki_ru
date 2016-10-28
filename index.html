@@ -44,16 +44,16 @@
                 document.querySelector('#caption').innerHTML = day + "/" + month + "/" + today.getFullYear();
                 
                 var timestamp = Math.round(today.getTime() / 1000);
-                exchange_rate("usd", 840, timestamp);
-                exchange_rate("euro", 978, timestamp);
+                exchange_rate("USD", 840, timestamp);
+                exchange_rate("EUR", 978, timestamp);
             }
             
         </script>
         
         <table>
             <caption id="caption"></caption>
-            <tr><td>USD:</td><td id="usd"></td></tr>
-            <tr><td>EURO:</td><td id="euro"></td></tr>
+            <tr><td>USD:</td><td id="USD"></td></tr>
+            <tr><td>EUR:</td><td id="EUR"></td></tr>
         </table>
 
     </body>
